@@ -23,11 +23,6 @@ jobs:
         with:
           python-version: '3.12.3'  # Specify the Python version
 
-      # Install dependencies
-      - name: Install dependencies
-        run: |
-          python -m pip install --upgrade pip
-          pip install -r requirements.txt
 
       # Add EC2 SSH private key to GitHub Actions environment
       - name: Add SSH key
@@ -51,7 +46,6 @@ jobs:
             cd /var/www/flask-app  # Change to the directory where your app is located
             git pull origin main  # Pull the latest changes from GitHub
             source venv/bin/activate  # Activate virtual environment if using one
-            pip install -r requirements.txt  # Install dependencies
             # Restart your app (for example, using Gunicorn or another service manager)
             sudo systemctl restart flask.service  # Adjust based on your service name
           EOF
