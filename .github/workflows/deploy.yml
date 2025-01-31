@@ -4,6 +4,10 @@ on:
   push:
     branches:
       - main   # Trigger deployment on push to the main branch
+    # Optionally, you can add a path filter if you want to trigger on changes to specific files or directories
+    # paths:
+    #   - 'app.py'  # Specify if you want to trigger only on changes to specific files
+
   pull_request:
     branches:
       - main   # Trigger deployment on pull request to the main branch
@@ -23,7 +27,6 @@ jobs:
         with:
           python-version: '3.12.3'  # Specify the Python version
 
-
       # Add EC2 SSH private key to GitHub Actions environment
       - name: Add SSH key
         run: |
@@ -42,7 +45,7 @@ jobs:
       # Deploy to EC2
       - name: Deploy to EC2
         run: |
-            ssh -o StrictHostKeyChecking=no ${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }} << 'EOF'
+          ssh -o StrictHostKeyChecking=no ${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }} << 'EOF'
             cd /var/www/flask-app  # Change to the directory where your app is located
             git pull origin main  # Pull the latest changes from GitHub
             source venv/bin/activate  # Activate virtual environment if using one
