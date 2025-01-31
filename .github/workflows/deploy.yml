@@ -42,7 +42,6 @@ jobs:
       # Deploy to EC2
       - name: Deploy to EC2
         run: |
-          ssh -o StrictHostKeyChecking=no ${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }} << 'EOF'
             cd /var/www/flask-app  # Change to the directory where your app is located
             git pull origin main  # Pull the latest changes from GitHub
             source venv/bin/activate  # Activate virtual environment if using one
