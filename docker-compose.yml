@@ -1,0 +1,23 @@
+version: '3.8'
+
+services:
+  flask-app:
+    build: .
+    container_name: flask-api
+    ports:
+      - "3000:3000"
+    volumes:
+      - flask-api-data:/app/data  # Mount volume to persist data or logs
+    networks:
+      - flask-api-network         # Connect to custom Docker network
+    environment:
+      - FLASK_ENV=production
+
+# Define volumes and networks
+volumes:
+  flask-api-data:
+
+networks:
+  flask-api-network:
+    driver: bridge
+
